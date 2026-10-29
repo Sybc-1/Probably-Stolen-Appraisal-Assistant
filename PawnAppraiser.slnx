@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PawnAppraiser.Core/PawnAppraiser.Core.csproj" />
+    <Project Path="src/PawnAppraiser.Desktop/PawnAppraiser.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PawnAppraiser.Core.Tests/PawnAppraiser.Core.Tests.csproj" />
+    <Project Path="tests/PawnAppraiser.Desktop.Tests/PawnAppraiser.Desktop.Tests.csproj" />
+    <Project Path="tests/SingleInstanceProbe/SingleInstanceProbe.csproj" />
+  </Folder>
+</Solution>

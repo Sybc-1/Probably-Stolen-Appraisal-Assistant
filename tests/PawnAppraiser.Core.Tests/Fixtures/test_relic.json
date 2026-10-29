@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "test_relic",
+  "displayName": "测试遗物",
+  "description": "仅测试使用；不随运行程序发行",
+  "strategy": "generic",
+  "pricing": {
+    "basePrice": 300,
+    "minimum": 90,
+    "maximum": 800
+  },
+  "groups": [
+    {
+      "id": "authenticity",
+      "label": "真伪",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 0,
+      "options": [
+        {
+          "id": "real",
+          "label": "真品",
+          "priceDelta": 0
+        },
+        {
+          "id": "fake",
+          "label": "赝品",
+          "priceDelta": -100
+        }
+      ]
+    },
+    {
+      "id": "extras",
+      "label": "附件",
+      "selectionType": "multiple",
+      "required": false,
+      "displayOrder": 1,
+      "options": [
+        {
+          "id": "seal",
+          "label": "封印",
+          "priceDelta": 20
+        },
+        {
+          "id": "case",
+          "label": "外盒",
+          "priceDelta": 30
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "bundle",
+      "label": "完整附件",
+      "kind": "bonus",
+      "value": 70,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "extras",
+            "option": "seal"
+          },
+          {
+            "op": "selected",
+            "group": "extras",
+            "option": "case"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fake",
+      "label": "赝品固定价",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "priority": 10,
+      "when": {
+        "op": "selected",
+        "group": "authenticity",
+        "option": "fake"
+      }
+    }
+  ]
+}

@@ -1,0 +1,764 @@
+{
+  "schemaVersion": 1,
+  "id": "ribwich",
+  "displayName": "肋明治",
+  "description": "依据三页指南。确定包装不合格或赝品时立即固定40并可复制，无需补齐其余项目；未定价时常规检查仍须完成。",
+  "strategy": "generic",
+  "pricing": {
+    "basePrice": 150,
+    "minimum": 40
+  },
+  "groups": [
+    {
+      "id": "packaging",
+      "label": "塑料包装",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 0,
+      "options": [
+        {
+          "id": "intact",
+          "label": "完整未拆封",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "opened",
+          "label": "已撕开",
+          "priceDelta": 0,
+          "displayOrder": 1
+        },
+        {
+          "id": "missing",
+          "label": "包装缺失",
+          "priceDelta": 0,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "date",
+      "label": "生产日期（月/年）",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 1,
+      "options": [
+        {
+          "id": "first_month",
+          "label": "首月 01/425",
+          "priceDelta": 80,
+          "displayOrder": 0
+        },
+        {
+          "id": "first_other",
+          "label": "第一批 02/425–12/429",
+          "priceDelta": 80,
+          "displayOrder": 1
+        },
+        {
+          "id": "second_other",
+          "label": "第二批 01/432–11/438",
+          "priceDelta": 0,
+          "displayOrder": 2
+        },
+        {
+          "id": "last_month",
+          "label": "末月 12/438",
+          "priceDelta": 0,
+          "displayOrder": 3
+        },
+        {
+          "id": "missing",
+          "label": "日期缺失",
+          "priceDelta": 0,
+          "displayOrder": 4
+        },
+        {
+          "id": "invalid",
+          "label": "日期无效 / 批次外",
+          "priceDelta": 0,
+          "displayOrder": 5,
+          "optionalDescription": "仅425年1月–429年12月、432年1月–438年12月为有效生产批次；430–431年及不合法月份均为赝品。"
+        }
+      ]
+    },
+    {
+      "id": "factory",
+      "label": "包装工厂（编号01–35）",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 2,
+      "options": [
+        {
+          "id": "high",
+          "label": "高品质：01、02、05、08、21、34",
+          "priceDelta": 50,
+          "displayOrder": 0
+        },
+        {
+          "id": "normal",
+          "label": "普通：其余有效编号",
+          "priceDelta": 0,
+          "displayOrder": 1,
+          "optionalDescription": "有效普通工厂：03、04、06、09、10、11、12、13、14、16、17、19、20、22、23、24、25、27、28、29、30、32、33、35。"
+        },
+        {
+          "id": "low",
+          "label": "低品质：07、15、18、26、31",
+          "priceDelta": -50,
+          "displayOrder": 2
+        },
+        {
+          "id": "missing",
+          "label": "编号缺失",
+          "priceDelta": 0,
+          "displayOrder": 3
+        },
+        {
+          "id": "invalid",
+          "label": "编号无效",
+          "priceDelta": 0,
+          "displayOrder": 4,
+          "optionalDescription": "包装工厂共35家，只有01–35有效；00、36及以上均无效。"
+        }
+      ]
+    },
+    {
+      "id": "edition",
+      "label": "版本（芝麻面包 / 加量酸黄瓜）",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 3,
+      "options": [
+        {
+          "id": "regular",
+          "label": "普通版（两项均无）",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "deluxe",
+          "label": "豪华版（两项都有）",
+          "priceDelta": 0,
+          "displayOrder": 1,
+          "optionalDescription": "同时具有芝麻面包及加量酸黄瓜，且通过全部真伪检查时+300。"
+        },
+        {
+          "id": "sesame_only",
+          "label": "仅芝麻面包（赝品）",
+          "priceDelta": 0,
+          "displayOrder": 2
+        },
+        {
+          "id": "pickles_only",
+          "label": "仅加量酸黄瓜（赝品）",
+          "priceDelta": 0,
+          "displayOrder": 3
+        }
+      ]
+    },
+    {
+      "id": "patties",
+      "label": "肉饼层数",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 4,
+      "options": [
+        {
+          "id": "single",
+          "label": "单层肉饼",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "double",
+          "label": "双层肉饼",
+          "priceDelta": 0,
+          "displayOrder": 1,
+          "optionalDescription": "通过全部真伪检查的双层肉饼肋明治+800，可与豪华版叠加。"
+        }
+      ]
+    },
+    {
+      "id": "brand",
+      "label": "达夫雷标志",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 5,
+      "options": [
+        {
+          "id": "correct",
+          "label": "正确（与手册一致）",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "missing",
+          "label": "标志缺失",
+          "priceDelta": 0,
+          "displayOrder": 1
+        },
+        {
+          "id": "wrong",
+          "label": "标志错误",
+          "priceDelta": 0,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "ribwich",
+      "label": "Ribwich贴纸",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 6,
+      "options": [
+        {
+          "id": "missing",
+          "label": "无贴纸（第一批正品）",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "correct",
+          "label": "正确贴纸（第二批正品）",
+          "priceDelta": 0,
+          "displayOrder": 1
+        },
+        {
+          "id": "wrong",
+          "label": "错误贴纸",
+          "priceDelta": 0,
+          "displayOrder": 2
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "commemorative",
+      "label": "首月 / 末月纪念加成",
+      "kind": "bonus",
+      "value": 50,
+      "when": {
+        "op": "any",
+        "children": [
+          {
+            "op": "selected",
+            "group": "date",
+            "option": "first_month"
+          },
+          {
+            "op": "selected",
+            "group": "date",
+            "option": "last_month"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deluxe",
+      "label": "正品豪华版",
+      "kind": "bonus",
+      "value": 300,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "edition",
+            "option": "deluxe"
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "op": "any",
+                "children": [
+                  {
+                    "op": "not",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "packaging",
+                        "option": "intact"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "date",
+                        "option": "missing"
+                      },
+                      {
+                        "op": "selected",
+                        "group": "date",
+                        "option": "invalid"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "factory",
+                        "option": "missing"
+                      },
+                      {
+                        "op": "selected",
+                        "group": "factory",
+                        "option": "invalid"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "edition",
+                        "option": "sesame_only"
+                      },
+                      {
+                        "op": "selected",
+                        "group": "edition",
+                        "option": "pickles_only"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "not",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "brand",
+                        "option": "correct"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "all",
+                    "children": [
+                      {
+                        "op": "any",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "first_month"
+                          },
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "first_other"
+                          }
+                        ]
+                      },
+                      {
+                        "op": "not",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "ribwich",
+                            "option": "missing"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "all",
+                    "children": [
+                      {
+                        "op": "any",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "second_other"
+                          },
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "last_month"
+                          }
+                        ]
+                      },
+                      {
+                        "op": "not",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "ribwich",
+                            "option": "correct"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "double_patty",
+      "label": "正品双层肉饼",
+      "kind": "bonus",
+      "value": 800,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "patties",
+            "option": "double"
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "op": "any",
+                "children": [
+                  {
+                    "op": "not",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "packaging",
+                        "option": "intact"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "date",
+                        "option": "missing"
+                      },
+                      {
+                        "op": "selected",
+                        "group": "date",
+                        "option": "invalid"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "factory",
+                        "option": "missing"
+                      },
+                      {
+                        "op": "selected",
+                        "group": "factory",
+                        "option": "invalid"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "any",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "edition",
+                        "option": "sesame_only"
+                      },
+                      {
+                        "op": "selected",
+                        "group": "edition",
+                        "option": "pickles_only"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "not",
+                    "children": [
+                      {
+                        "op": "selected",
+                        "group": "brand",
+                        "option": "correct"
+                      }
+                    ]
+                  },
+                  {
+                    "op": "all",
+                    "children": [
+                      {
+                        "op": "any",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "first_month"
+                          },
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "first_other"
+                          }
+                        ]
+                      },
+                      {
+                        "op": "not",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "ribwich",
+                            "option": "missing"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "all",
+                    "children": [
+                      {
+                        "op": "any",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "second_other"
+                          },
+                          {
+                            "op": "selected",
+                            "group": "date",
+                            "option": "last_month"
+                          }
+                        ]
+                      },
+                      {
+                        "op": "not",
+                        "children": [
+                          {
+                            "op": "selected",
+                            "group": "ribwich",
+                            "option": "correct"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bad_package",
+      "label": "塑料包装缺失或已撕开：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "not",
+        "children": [
+          {
+            "op": "selected",
+            "group": "packaging",
+            "option": "intact"
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "bad_date",
+      "label": "生产日期缺失、无效或超出批次：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "any",
+        "children": [
+          {
+            "op": "selected",
+            "group": "date",
+            "option": "missing"
+          },
+          {
+            "op": "selected",
+            "group": "date",
+            "option": "invalid"
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "bad_factory",
+      "label": "包装工厂编号缺失或无效：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "any",
+        "children": [
+          {
+            "op": "selected",
+            "group": "factory",
+            "option": "missing"
+          },
+          {
+            "op": "selected",
+            "group": "factory",
+            "option": "invalid"
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "bad_deluxe",
+      "label": "豪华版两项特征不齐：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "any",
+        "children": [
+          {
+            "op": "selected",
+            "group": "edition",
+            "option": "sesame_only"
+          },
+          {
+            "op": "selected",
+            "group": "edition",
+            "option": "pickles_only"
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "bad_brand",
+      "label": "达夫雷标志缺失或错误：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "not",
+        "children": [
+          {
+            "op": "selected",
+            "group": "brand",
+            "option": "correct"
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "first_sticker",
+      "label": "第一批次出现Ribwich贴纸（用户确认）：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "any",
+            "children": [
+              {
+                "op": "selected",
+                "group": "date",
+                "option": "first_month"
+              },
+              {
+                "op": "selected",
+                "group": "date",
+                "option": "first_other"
+              }
+            ]
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "op": "selected",
+                "group": "ribwich",
+                "option": "missing"
+              }
+            ]
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "second_sticker",
+      "label": "第二批次Ribwich贴纸缺失或错误：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "any",
+            "children": [
+              {
+                "op": "selected",
+                "group": "date",
+                "option": "second_other"
+              },
+              {
+                "op": "selected",
+                "group": "date",
+                "option": "last_month"
+              }
+            ]
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "op": "selected",
+                "group": "ribwich",
+                "option": "correct"
+              }
+            ]
+          }
+        ]
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    },
+    {
+      "id": "wrong_sticker",
+      "label": "Ribwich贴纸图案错误：固定40",
+      "kind": "absoluteOverride",
+      "value": 40,
+      "when": {
+        "op": "selected",
+        "group": "ribwich",
+        "option": "wrong"
+      },
+      "priority": 100,
+      "applyBounds": true,
+      "completeEarly": true
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "id": "bionic_hand",
+  "displayName": "仿生机械手",
+  "description": "按设计冻结版第七章鉴定；材料、品相、接口均为必选。",
+  "icon": null,
+  "strategy": "generic",
+  "pricing": {
+    "basePrice": 100,
+    "minimum": 50
+  },
+  "groups": [
+    {
+      "id": "material",
+      "label": "材料",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 0,
+      "options": [
+        {
+          "id": "aluminum",
+          "label": "铝合金",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "carbon",
+          "label": "碳复合材料",
+          "priceDelta": 50,
+          "displayOrder": 1
+        },
+        {
+          "id": "gold",
+          "label": "镀金",
+          "priceDelta": 200,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "condition",
+      "label": "品相",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 1,
+      "options": [
+        {
+          "id": "intact",
+          "label": "完好",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "worn",
+          "label": "磨损",
+          "priceDelta": -35,
+          "displayOrder": 1
+        },
+        {
+          "id": "damaged",
+          "label": "受损",
+          "priceDelta": -85,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "interface",
+      "label": "控制接口",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 2,
+      "options": [
+        {
+          "id": "emg",
+          "label": "EMG",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "emg_plus",
+          "label": "EMG+",
+          "priceDelta": 45,
+          "displayOrder": 1
+        },
+        {
+          "id": "neural",
+          "label": "神经接口",
+          "priceDelta": 120,
+          "displayOrder": 2
+        },
+        {
+          "id": "unknown",
+          "label": "规格不明",
+          "priceDelta": -60,
+          "displayOrder": 3
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "label": "附加组件",
+      "selectionType": "multiple",
+      "required": false,
+      "displayOrder": 3,
+      "options": [
+        {
+          "id": "armor",
+          "label": "装甲",
+          "priceDelta": 50,
+          "displayOrder": 0
+        },
+        {
+          "id": "blade",
+          "label": "刀刃",
+          "priceDelta": 80,
+          "displayOrder": 1
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "tactical",
+      "label": "战术型套装",
+      "kind": "bonus",
+      "value": 100,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "material",
+            "option": "carbon"
+          },
+          {
+            "op": "selected",
+            "group": "condition",
+            "option": "intact"
+          },
+          {
+            "op": "any",
+            "children": [
+              {
+                "op": "selected",
+                "group": "interface",
+                "option": "emg_plus"
+              },
+              {
+                "op": "selected",
+                "group": "interface",
+                "option": "neural"
+              }
+            ]
+          },
+          {
+            "op": "selected",
+            "group": "components",
+            "option": "armor"
+          },
+          {
+            "op": "selected",
+            "group": "components",
+            "option": "blade"
+          }
+        ]
+      }
+    },
+    {
+      "id": "luxury",
+      "label": "豪华型套装",
+      "kind": "bonus",
+      "value": 200,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "material",
+            "option": "gold"
+          },
+          {
+            "op": "selected",
+            "group": "condition",
+            "option": "intact"
+          },
+          {
+            "op": "selected",
+            "group": "interface",
+            "option": "neural"
+          }
+        ]
+      }
+    }
+  ]
+}

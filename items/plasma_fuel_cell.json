@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 1,
+  "id": "plasma_fuel_cell",
+  "displayName": "等离子燃料匣",
+  "description": "依据七页鉴定手册。磨损等级单选；破裂、螺丝外露、加固处理独立多选。制造商条件全部满足才加成，否则只计算普通修正；最低90。",
+  "strategy": "generic",
+  "pricing": {
+    "basePrice": 300,
+    "minimum": 90
+  },
+  "groups": [
+    {
+      "id": "wear",
+      "label": "燃料匣磨损",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 0,
+      "options": [
+        {
+          "id": "standard",
+          "label": "标准",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "light",
+          "label": "轻度磨损",
+          "priceDelta": -45,
+          "displayOrder": 1
+        },
+        {
+          "id": "heavy",
+          "label": "重度磨损",
+          "priceDelta": -90,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "features",
+      "label": "燃料匣其他品相",
+      "selectionType": "multiple",
+      "required": false,
+      "displayOrder": 1,
+      "options": [
+        {
+          "id": "cracked",
+          "label": "破裂",
+          "priceDelta": -150,
+          "displayOrder": 0
+        },
+        {
+          "id": "exposed_screws",
+          "label": "螺丝外露",
+          "priceDelta": -30,
+          "displayOrder": 1
+        },
+        {
+          "id": "reinforced",
+          "label": "加固处理",
+          "priceDelta": 60,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "color",
+      "label": "等离子颜色",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 2,
+      "options": [
+        {
+          "id": "standard",
+          "label": "标准（蓝色）",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "low",
+          "label": "低级（其余颜色）",
+          "priceDelta": -150,
+          "displayOrder": 1,
+          "optionalDescription": "任何非标准、非高级的颜色都归为低级；不只限于绿色示例。"
+        },
+        {
+          "id": "high",
+          "label": "高级（紫色）",
+          "priceDelta": 150,
+          "displayOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "manufacturer",
+      "label": "燃料匣制造商",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 3,
+      "options": [
+        {
+          "id": "wld",
+          "label": "WLD · 王尔德载具",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "zhs",
+          "label": "ZHS · 中华船舶",
+          "priceDelta": 0,
+          "displayOrder": 1
+        },
+        {
+          "id": "rnr",
+          "label": "RNR · 共和国海军征用部",
+          "priceDelta": 0,
+          "displayOrder": 2
+        },
+        {
+          "id": "ign",
+          "label": "IGN · 点火实验室",
+          "priceDelta": 0,
+          "displayOrder": 3
+        },
+        {
+          "id": "unknown",
+          "label": "其他／无法辨认",
+          "priceDelta": 0,
+          "displayOrder": 4,
+          "optionalDescription": "无法确认属于手册列出的四家制造商时不加制造商奖励；基础及品相修正照常。"
+        }
+      ]
+    },
+    {
+      "id": "security_mark",
+      "label": "防伪标",
+      "selectionType": "single",
+      "required": true,
+      "displayOrder": 4,
+      "options": [
+        {
+          "id": "present",
+          "label": "带有（与手册一致）",
+          "priceDelta": 0,
+          "displayOrder": 0
+        },
+        {
+          "id": "absent",
+          "label": "缺失／不符",
+          "priceDelta": 0,
+          "displayOrder": 1,
+          "optionalDescription": "不满足制造商加成条件；手册未规定固定赝品价，仍按普通修正及最低价计算。"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "wld_bonus",
+      "label": "WLD 制造商匹配",
+      "kind": "bonus",
+      "value": 60,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "manufacturer",
+            "option": "wld"
+          },
+          {
+            "op": "selected",
+            "group": "security_mark",
+            "option": "present"
+          },
+          {
+            "op": "any",
+            "children": [
+              {
+                "op": "selected",
+                "group": "color",
+                "option": "low"
+              },
+              {
+                "op": "selected",
+                "group": "color",
+                "option": "standard"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "rnr_bonus",
+      "label": "RNR 制造商匹配",
+      "kind": "bonus",
+      "value": 120,
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "op": "selected",
+            "group": "manufacturer",
+            "option": "rnr"
+          },
+          {
+            "op": "selected",
+            "group": "security_mark",
+            "option": "present"
+          },
+          {
+            "op": "selected",
+            "group": "color",
+            "option": "standard"
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "op": "selected",
+                "group": "features",
+                "option": "cracked"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "ZHS 制造商匹配",
+      "kind": "bonus",
+      "value": 120,
+      "id": "zhs_bonus",
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "option": "zhs",
+            "group": "manufacturer",
+            "op": "selected"
+          },
+          {
+            "option": "present",
+            "group": "security_mark",
+            "op": "selected"
+          },
+          {
+            "option": "standard",
+            "group": "color",
+            "op": "selected"
+          },
+          {
+            "option": "standard",
+            "group": "wear",
+            "op": "selected"
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "option": "cracked",
+                "group": "features",
+                "op": "selected"
+              }
+            ]
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "option": "exposed_screws",
+                "group": "features",
+                "op": "selected"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "IGN 制造商匹配",
+      "kind": "bonus",
+      "value": 750,
+      "id": "ign_bonus",
+      "when": {
+        "op": "all",
+        "children": [
+          {
+            "option": "ign",
+            "group": "manufacturer",
+            "op": "selected"
+          },
+          {
+            "option": "present",
+            "group": "security_mark",
+            "op": "selected"
+          },
+          {
+            "option": "high",
+            "group": "color",
+            "op": "selected"
+          },
+          {
+            "option": "standard",
+            "group": "wear",
+            "op": "selected"
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "option": "cracked",
+                "group": "features",
+                "op": "selected"
+              }
+            ]
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "option": "exposed_screws",
+                "group": "features",
+                "op": "selected"
+              }
+            ]
+          },
+          {
+            "op": "not",
+            "children": [
+              {
+                "option": "reinforced",
+                "group": "features",
+                "op": "selected"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

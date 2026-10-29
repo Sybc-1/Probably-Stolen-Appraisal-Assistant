@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><IsPackable>false</IsPackable><IsTestProject>true</IsTestProject><RuntimeIdentifier>win-x64</RuntimeIdentifier><PlatformTarget>x64</PlatformTarget><SelfContained>false</SelfContained><PublishSingleFile>false</PublishSingleFile></PropertyGroup>
+ <ItemGroup><ProjectReference Include="../../src/PawnAppraiser.Desktop/PawnAppraiser.Desktop.csproj"/><ProjectReference Include="../SingleInstanceProbe/SingleInstanceProbe.csproj" ReferenceOutputAssembly="false"/><PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/><PackageReference Include="xunit" Version="2.9.3"/><PackageReference Include="xunit.runner.visualstudio" Version="3.1.4"><PrivateAssets>all</PrivateAssets></PackageReference></ItemGroup>
+ <ItemGroup><None Include="../../items/bionic_hand.json" Link="items/bionic_hand.json" CopyToOutputDirectory="PreserveNewest"/></ItemGroup>
+ <ItemGroup><PackageReference Include="coverlet.collector" Version="6.0.4"><PrivateAssets>all</PrivateAssets></PackageReference></ItemGroup>
+ <Target Name="CopyProbe" AfterTargets="Build"><ItemGroup><ProbeFiles Include="../SingleInstanceProbe/bin/$(Configuration)/net10.0-windows/win-x64/*"/></ItemGroup><Copy SourceFiles="@(ProbeFiles)" DestinationFolder="$(OutDir)probe" SkipUnchangedFiles="true"/></Target>
+ <ItemGroup><None Include="../../items/ribwich.json" Link="items/ribwich.json" CopyToOutputDirectory="PreserveNewest"/><None Include="../../items/plasma_fuel_cell.json" Link="items/plasma_fuel_cell.json" CopyToOutputDirectory="PreserveNewest"/></ItemGroup>
+</Project>
